@@ -1,6 +1,37 @@
 # MyBatis DB 초기세팅
 
-## MyBatisConfig.java
-- @MapperScan(basePackages = "site.metacoding.red.domain") 에서 주소 변경해서 계속 돌아가면서 쓰기
+## DB 설계 및 테이블 
+``` SQL
+CREATE USER 'green'@'%' IDENTIFIED BY 'green1234';
+CREATE DATABASE greendb;
+GRANT ALL PRIVILEGES ON greendb.* TO 'green'@'%';
 
-## test 완료 후에는 indexController와 index.jsp 삭제하기 (헷갈리니까)
+USE greendb;
+
+DROP TABLE users;
+DROP TABLE boards;
+
+create table users(
+    id int primary KEY auto_increment,
+    username varchar(20),
+    password varchar(20),
+    email varchar(50),
+    created_at TIMESTAMP
+);
+
+create table boards(
+    id int primary KEY auto_increment,
+    title varchar(150),
+    content longtext,
+    users_id int,
+    created_at TIMESTAMP
+);
+
+SELECT * FROM users;
+SELECT * FROM boards;
+
+insert into users(username, password, email, created_at) values('ssar', '1234', 'ssar@nate.com', NOW());
+insert into users(username, password, email, created_at) values('cos', '1234', 'cos@nate.com', NOW());
+insert into users(username, password, email, created_at) values('hong', '1234', 'hong@nate.com', NOW());
+COMMIT;
+```
